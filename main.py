@@ -1,39 +1,48 @@
-class Lugat:
+class School:
     def __init__(self):
-        self.lugat = {}
+        self.teachers = []
+        self.subjects = []
+        self.schedules = []
 
-    def qoshish(self):
-        kalit = input("Kalitni kiriting: ")
-        qiymat = input("Qiymatni kiriting: ")
-        self.lugat[kalit] = qiymat
+    def add_teacher(self, teacher):
+        self.teachers.append(teacher)
 
-    def ochirish(self):
-        kalit = input("O'chiriladigan kalitni kiriting: ")
-        if kalit in self.lugat:
-            del self.lugat[kalit]
-        else:
-            print("Bunday kalit mavjud emas")
+    def add_subject(self, subject):
+        self.subjects.append(subject)
 
-    def ko'rish(self):
-        print(self.lugat)
+    def add_schedule(self, teacher, subject, time):
+        self.schedules.append({"teacher": teacher, "subject": subject, "time": time})
 
-    def boshqarish(self):
-        while True:
-            print("1. Kalit va qiymat qo'shish")
-            print("2. Kalit va qiymat o'chirish")
-            print("3. Lug'atni ko'rish")
-            print("4. Chiqish")
-            tanlov = input("Tanlovni kiriting: ")
-            if tanlov == "1":
-                self.qoshish()
-            elif tanlov == "2":
-                self.ochirish()
-            elif tanlov == "3":
-                self.ko'rish()
-            elif tanlov == "4":
-                break
-            else:
-                print("Noto'g'ri tanlov")
+class Teacher:
+    def __init__(self, name):
+        self.name = name
 
-lugat = Lugat()
-lugat.boshqarish()
+class Subject:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+class Schedule:
+    def __init__(self, teacher, subject, time):
+        self.teacher = teacher
+        self.subject = subject
+        self.time = time
+
+    def __str__(self):
+        return f"{self.teacher.name} - {self.subject.name} - {self.time}"
+
+school = School()
+teacher1 = Teacher("John")
+teacher2 = Teacher("Mike")
+subject1 = Subject("Math")
+subject2 = Subject("Science")
+school.add_teacher(teacher1)
+school.add_teacher(teacher2)
+school.add_subject(subject1)
+school.add_subject(subject2)
+school.add_schedule(teacher1, subject1, "10:00")
+school.add_schedule(teacher2, subject2, "11:00")
+for schedule in school.schedules:
+    print(schedule["teacher"].name, schedule["subject"].name, schedule["time"])
