@@ -1,5 +1,31 @@
+class Teacher:
+    def __init__(self, name, subject):
+        self.name = name
+        self.subject = subject
+
+    def display_info(self):
+        print(f"Teacher Name: {self.name}, Subject: {self.subject}")
+
+class Subject:
+    def __init__(self, name):
+        self.name = name
+
+    def display_name(self):
+        print(f"Subject Name: {self.name}")
+
+class Schedule:
+    def __init__(self, teacher, subject, day, time):
+        self.teacher = teacher
+        self.subject = subject
+        self.day = day
+        self.time = time
+
+    def display_info(self):
+        print(f"Day: {self.day}, Time: {self.time}, Teacher: {self.teacher.name}, Subject: {self.subject.name}")
+
 class School:
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.teachers = []
         self.subjects = []
         self.schedules = []
@@ -10,39 +36,36 @@ class School:
     def add_subject(self, subject):
         self.subjects.append(subject)
 
-    def add_schedule(self, teacher, subject, time):
-        self.schedules.append({"teacher": teacher, "subject": subject, "time": time})
+    def add_schedule(self, schedule):
+        self.schedules.append(schedule)
 
-class Teacher:
-    def __init__(self, name):
-        self.name = name
+    def display_schedules(self):
+        for schedule in self.schedules:
+            schedule.display_info()
 
-class Subject:
-    def __init__(self, name):
-        self.name = name
+school = School("ABC School")
+math_teacher = Teacher("John", "Math")
+english_teacher = Teacher("Jane", "English")
+math_subject = Subject("Mathematics")
+english_subject = Subject("English Language")
 
-    def __str__(self):
-        return self.name
+school.add_teacher(math_teacher)
+school.add_teacher(english_teacher)
+school.add_subject(math_subject)
+school.add_subject(english_subject)
 
-class Schedule:
-    def __init__(self, teacher, subject, time):
-        self.teacher = teacher
-        self.subject = subject
-        self.time = time
+schedule1 = Schedule(math_teacher, math_subject, "Monday", "9:00 AM")
+schedule2 = Schedule(english_teacher, english_subject, "Monday", "10:00 AM")
+schedule3 = Schedule(math_teacher, math_subject, "Tuesday", "9:00 AM")
+schedule4 = Schedule(english_teacher, english_subject, "Tuesday", "10:00 AM")
 
-    def __str__(self):
-        return f"{self.teacher.name} - {self.subject.name} - {self.time}"
+school.add_schedule(schedule1)
+school.add_schedule(schedule2)
+school.add_schedule(schedule3)
+school.add_schedule(schedule4)
 
-school = School()
-teacher1 = Teacher("John")
-teacher2 = Teacher("Mike")
-subject1 = Subject("Math")
-subject2 = Subject("Science")
-school.add_teacher(teacher1)
-school.add_teacher(teacher2)
-school.add_subject(subject1)
-school.add_subject(subject2)
-school.add_schedule(teacher1, subject1, "10:00")
-school.add_schedule(teacher2, subject2, "11:00")
-for schedule in school.schedules:
-    print(schedule["teacher"].name, schedule["subject"].name, schedule["time"])
+school.display_schedules()
+math_teacher.display_info()
+english_teacher.display_info()
+math_subject.display_name()
+english_subject.display_name()
